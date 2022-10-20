@@ -13,6 +13,16 @@ nameInput.addEventListener('change', e => {
 newTodoForm.addEventListener('submit', e => {
   e.preventDefault();
 
+  if (e.target.content.value === '') {
+    alert('Please fill out the task');
+    return;
+  }
+
+  if (e.target.category.value === '') {
+    alert('Please choose a category');
+    return;
+  }
+
   const todo = {
     content: e.target.elements.content.value,
     category: e.target.elements.category.value,
@@ -41,6 +51,7 @@ const displayTodos = () => {
     const actions = document.createElement('div');
     const editBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
+    const contentInput = document.createElement('input');
 
     input.type = 'checkbox';
     input.checked = todo.done;
@@ -56,7 +67,11 @@ const displayTodos = () => {
     actions.classList.add('actions');
     editBtn.classList.add('edit');
     deleteBtn.classList.add('delete');
-    content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
+    // content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
+    contentInput.type = 'text';
+    contentInput.value = `${todo.content}`;
+    contentInput.setAttribute('readonly', 'readonly');
+    content.append(contentInput);
 
     editBtn.textContent = 'Edit';
     deleteBtn.textContent = 'Delete';
